@@ -44,8 +44,8 @@
 			&nbsp;
 			<i><span sec:authentication="principal.authorities">Roles</span></i>
 		</div>
-        <div sec:authorize="hasAuthority('ROLE_USER')">
-        	<a th:href="@{/showNewPenerbanganForm}" class="btn btn-primary btn-sm mb-3"> Tambah Penerbangan </a>
+        <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+        	<a th:href="@{/showNewBandaraForm}" class="btn btn-primary btn-sm mb-3"> Tambah Bandara </a>
 
 	        <table class="table table-striped  thead-dark">
 	            <thead>
@@ -69,6 +69,30 @@
 	                    	<a th:href="@{/showFormForUpdate/{id}(id=${penerbangan.id})}" class="btn btn-primary">Update</a>
 	                        <a th:href="@{/deletePenerbangan/{id}(id=${penerbangan.id})}" class="btn btn-danger">Delete</a>
 	                    </td>
+	                </tr>
+	            </tbody>
+	        </table>
+        </div>
+        <div sec:authorize="hasAuthority('ROLE_USER')">
+        	<a th:href="@{/showNewPenerbanganForm}" class="btn btn-primary btn-sm mb-3"> Tambah Penerbangan </a>
+
+	        <table class="table table-striped  thead-dark">
+	            <thead>
+	                <tr>
+	                    <th>Froml</th>
+	                    <th>To</th>
+	                    <th>Tangal Keberangkatan</th>
+	                    <th>Tanggal Kedatangan</th>
+	                    <th>Jumlah Penumpang</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="penerbangan : ${listpenerbangan}">
+	                    <td th:text="${penerbangan.namaAsal}"></td>
+	                    <td th:text="${penerbangan.namaTujuan}"></td>
+	                    <td th:text="${penerbangan.tanggalKeberangkatan}"></td>
+	                    <td th:text="${penerbangan.tanggalKedatangan}"></td>
+	                    <td th:text="${penerbangan.jumlah}"></td>
 	                </tr>
 	            </tbody>
 	        </table>

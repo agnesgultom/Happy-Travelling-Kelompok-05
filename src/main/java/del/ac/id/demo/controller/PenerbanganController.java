@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import del.ac.id.demo.model.Bandara;
 import del.ac.id.demo.model.Penerbangan;
+import del.ac.id.demo.service.BandaraService;
 import del.ac.id.demo.service.PenerbanganService;
 
 @Controller
@@ -16,12 +18,29 @@ public class PenerbanganController {
 
     @Autowired
     private PenerbanganService penerbanganService;
+    private BandaraService bandaraService;
 
     // display list of penerbangans
     @GetMapping("/")
     public String viewHomePage(Model model) {
         model.addAttribute("listpenerbangan", penerbanganService.getAllPenerbangans());
         return "index";
+    }
+    
+    @GetMapping("/showNewBandaraForm")
+    public String showNewBandaraForm(Model model) {
+        // create model attribute to bind form data
+        Bandara bandara = new Bandara();
+        model.addAttribute("bandara", bandara);
+        return "new_bandara";
+    }
+    
+    @PostMapping("/saveBandara")
+    public String saveBandara(@ModelAttribute("bandara") Bandara bandara) {
+        // save bandara to database
+    	return "redirect:/";
+//        bandaraService.saveBandara(bandara);
+//        return "redirect:/";
     }
 
     @GetMapping("/showNewPenerbanganForm")
